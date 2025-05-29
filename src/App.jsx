@@ -1,5 +1,6 @@
 import React from 'react';
 import { initializeApp } from "firebase/app";
+import CustomRoutes from './Routes/CustomRoutes';
 
 const App = () => {
 
@@ -15,7 +16,7 @@ const App = () => {
 
   return (
     <div>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem, ullam beatae ea perferendis ab doloribus at modi sequi similique consequatur eum harum? Laboriosam in consectetur praesentium expedita hic ut pariatur.</p>
+      <CustomRoutes/>
     </div>
   )
 }
