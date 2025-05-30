@@ -1,7 +1,7 @@
 import React from 'react';
 import { initializeApp } from "firebase/app";
 import CustomRoutes from './Routes/CustomRoutes';
-
+import Login from './Authentication/Login';
 const App = () => {
 
   const firebaseConfig = {
@@ -17,6 +17,7 @@ const App = () => {
   return (
     <div>
       <CustomRoutes/>
+      {/* <Login/> */}
     </div>
   )
 }
