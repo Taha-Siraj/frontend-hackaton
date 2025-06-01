@@ -1,20 +1,55 @@
-import React, { useContext } from 'react';
-import { GlobalContext } from '../Context/Context';
-
+import React, { useState } from 'react'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
 
-   const { state, dispatch } = useContext(GlobalContext);
+   const [formData, setFormData] = useState({
+      email: "",
+      password: "",
+   }) 
 
+  const auth = getAuth();
 
-    const style = 'text-black  rounded-md outline-none py-2 px-5 '
+  const handdleForm = (e) => {
+    const {name , value} = e.target;
+    setFormData((prev) => ({
+       ...prev,
+       [name]: value 
+    }))
+
+ }
+
+  const loginUser = (e) => {
+    e.preventDefault()
+    signInWithEmailAndPassword(auth, formData.email, formData.password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user, "user login")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(error, "error")
+  });
+
+  }
   return (
     <div>
-     <div className='bg-gray-700 h-screen text-xl font-mono text-white capitalize'>
-        <h1 className='text-center text-3xl font-semibold'>Login Form</h1>
-        <input type="email" className={style} placeholder='email' />
-        <input type="password" className={style} placeholder='password' />
-        <button className={`${style} bg-green-700 `}>Login</button>
-     </div>
+        <form onSubmit={loginUser}>
+        <input 
+        type="email"
+        name='email'
+        placeholder='Email'
+        onChange={handdleForm}
+/>
+        <input 
+        type="password"
+        name='password'
+        placeholder='password'
+        onChange={handdleForm}
+/>
+<button>Login</button>
+
+    </form>
     </div>
   )
 }
