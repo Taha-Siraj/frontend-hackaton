@@ -9,3 +9,7 @@ body{
 .card{
     background-color: aquamarine;
 }
+
+#signup{
+    background-image: url(assets/123.avif);
+}

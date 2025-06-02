@@ -3,8 +3,8 @@ import { initializeApp } from "firebase/app";
 import CustomRoutes from './Routes/CustomRoutes';
 import Signup from './Authentication/Signup';
 import Login from "./Authentication/Login";
-const App = () => {
 
+const App = () => { 
   const firebaseConfig = {
   apiKey: "AIzaSyBrFJDzzi732TgegwWHw8RloeIT74FBmhY",
   authDomain: "frontend-hackaton-project.firebaseapp.com",
@@ -17,10 +17,7 @@ const App = () => {
 
   return (
     <div>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur nam soluta perferendis quidem, nihil quisquam quo rem labore enim cupiditate. Quisquam blanditiis perspiciatis magnam odit, reiciendis deleniti vel fuga aperiam?</p>
-      {/* <CustomRoutes/> */}
-      <Login/>
-      <Signup/>
+      <CustomRoutes/>
     </div>
   )
 }

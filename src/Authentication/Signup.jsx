@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { GlobalContext } from '../Context/Context.jsx';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
  const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ const handleSignup = (e) => {
 }
 
     return (
-    <div>
+    <div id='signup'>
     <form onSubmit={handleSignup}>
         <input 
         type="text"
@@ -54,6 +55,7 @@ const handleSignup = (e) => {
         placeholder='password'
         onChange={handdleForm}
 />
+<p>Already have an Account <Link to="/login"> login </Link> </p>
 <button>Signup</button>
 
     </form>
