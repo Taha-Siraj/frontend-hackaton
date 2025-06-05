@@ -5,6 +5,11 @@
 body{
     overflow-x: hidden;
 } 
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
 .card{
     background-color: aquamarine;
@@ -12,4 +17,29 @@ body{
 
 #signup{
     background-image: url(assets/123.avif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+#form{
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.login{
+    background-image: url(assets/234.avif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+#loginform{
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+.box{
+     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(100px);
 }
