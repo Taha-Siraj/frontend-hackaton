@@ -6,7 +6,6 @@ export const reducer = (state, action) => {
       case "ADMIN_LOGIN": {
         return { isAdmin: true , user: action.payload, isLogin: false}
       }
-      
       case "USER_LOGOUT": {
         return { isLogin: false , user: {}, isAdmin: false }
       }
