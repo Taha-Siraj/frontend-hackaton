@@ -19,7 +19,6 @@ const db = getFirestore();
     ...prev,
     [name]: value
   }))
-
  }
 
 const handleSubmit = async( e) => {
