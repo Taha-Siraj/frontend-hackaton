@@ -37,9 +37,17 @@ const handleSubmit = async( e) => {
     setFormData({userName: '', email: '', password: ''});
 }
   catch(error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("error", error)
+   const errorCode = error.code;
+
+  if (errorCode === "auth/email-already-in-use") {
+    alert("❌ Email already in use. Please use a different one.");
+  } else if (errorCode === "auth/weak-password") {
+    alert("❌ Password should be at least 6 characters.");
+  } else if (errorCode === "auth/invalid-email") {
+    alert("❌ Please enter a valid email address.");
+  } else {
+    alert("❌ Something went wrong. Try again.");
+  }
   }
 }
 
