@@ -1,43 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // ✅ logout ke liye signOut bhi import
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; 
 import { GlobalContext } from '../Context/Context';
 
 const Home = () => {
   const { state, dispatch } = useContext(GlobalContext);
   const [ userData , setUserData] = useState("");
-  // ✅ Global state access
-
-  const navigate = useNavigate(); // ✅ Redirect ke liye
-
-  // ✅ Firebase Auth Listener (Check user login state)
+  const navigate = useNavigate();
   useEffect(() => {
     const auth = getAuth();
-
-    // ✅ Auth state change listener (automatically detects login/logout)
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // ✅ User logged in => dispatch global login
-        dispatch({ type: "USER_LOGIN", payload: user });
         console.log("User is logged in:", user);
-        setUserData(user); // ✅ Set user data in local state
+        setUserData(user);
       } else {
-        // ❌ User is not logged in (optional handling)
         console.log("No user logged in");
       }
     });
-
-    // ✅ Cleanup listener on component unmount
     return () => unSubscribe();
   }, []);
 
-  // ✅ Logout handler
   const handleLogout = async () => {
     const auth = getAuth();
     try {
-      await signOut(auth); // ✅ Firebase logout
-      dispatch({ type: "USER_LOGOUT" }); // ✅ Dispatch logout to context
-      navigate("/login"); // ✅ Redirect to login
+      await signOut(auth); 
+      dispatch({ type: "USER_LOGOUT" });
+      navigate("/login");
       console.log("Logout successful");
     } catch (error) {
       console.error("Logout failed", error);
@@ -52,22 +40,17 @@ const Home = () => {
         <button className='bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600'>
           <Link to="/signup">Signup</Link>
         </button>
-
         <button className='bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-600'>
           <Link to="/login">Login</Link>
         </button>
         <button
           className='bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-600'
-          onClick={handleLogout}
-        >
+          onClick={handleLogout}>
           LOGOUT
         </button>
-
-        
       
       </div>
-    <div className='flex justify-center items-center flex-col gap-y-4 py-7 '>
-
+        <div className='flex justify-center items-center flex-col gap-y-4 py-7 '>
        <img src={userData.photoURL} className='rounded-full h-[60px] w-[60px] object-cover' alt=""   />
       <h1 className='text-xl'>{userData.displayName}</h1>
        <p>{userData.email}</p>
