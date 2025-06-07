@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword , sendPasswordResetEmail , sendEmailVerification   } from "firebase/auth";
 
 
 const Login = () => {
@@ -36,16 +36,30 @@ const Login = () => {
     const errorMessage = error.message;
   });
   }
+
+  const Forgetpassword = () => {
+    sendPasswordResetEmail(auth, formData.email)
+  .then(() => {
+    console.log("Password reset email sent successfully");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error("Error sending password reset email:", errorMessage);
+  });
+
+  }
   const style = 'border border-gray-400 outline-none rounded-md px-2 py-2 focus:border-blue-400 focus:border-2 w-full';
 
   return (
     <div>
 
        <div className='h-screen flex justify-center  items-center'>
-      <form className='font-poppins flex w-[350px] justify-center items-center flex-col  bg-gray-200 px-6 py-6 gap-y-6 rounded-lg ' onSubmit={handleSubmit}>
+      <form className='font-poppins flex w-[350px] justify-center items-center flex-col  bg-gray-200 px-6 py-6 gap-y-4 rounded-lg ' onSubmit={handleSubmit}>
         <h1 className='text-2xl font-extrabold text-blue-400'>Login Form</h1>
         <input type="email" value={formData.email}  className={style} placeholder='email' onChange={handleChange}  name='email' />
         <input type="password" value={formData.password} className={style}  placeholder='password' onChange={handleChange}  name='password' />
+        <p><Link onClick={Forgetpassword} className='text-xl underline text-gray-400'> Forget password? </Link></p>
         <p>if You don`t have an account<Link to="/signup" className='underline text-gray-500'>Signup</Link> </p>
         <button className= 'active:scale-95 bg-green-400 py-2 px-4 rounded-md'>LOGIN</button>
       </form>

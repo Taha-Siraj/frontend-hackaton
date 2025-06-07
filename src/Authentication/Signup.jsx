@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification  } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import { getFirestore } from "firebase/firestore";
 import { doc, setDoc} from "firebase/firestore";
@@ -26,15 +26,32 @@ const handleSubmit = async( e) => {
   try{
   const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
     const user = userCredential.user;
+     sendEmailVerification(auth.currentUser)
+  .then(() => {
+    console.log("Verification email sent successfully");
+  })
+  .catch((error) => {
+    console.error("Error sending verification email:", error);
+  })
+    updateProfile(auth.currentUser, {
+       displayName: formData.userName,
+       photoURL: "https://rb.gy/q2o66m"
+      }).then(() => {
+        console.log("Profile updated successfully");
+      }).catch((error) => {
+        console.log("Error updating profile:", error);
+      });
      const role = user.email === "admin@gamil.com" ? "admin" : "user"
     await setDoc(doc(db, "users" , user.uid),{
-      email: user.email,
+       email: user.email,
+      photoURL: "https://rb.gy/q2o66m",
       role: role,
       userName: formData.userName,  
       uid: user.uid,
       createdAt: new Date().toISOString()
     })
     setFormData({userName: '', email: '', password: ''});
+   
 }
   catch(error) {
    const errorCode = error.code;
@@ -50,6 +67,7 @@ const handleSubmit = async( e) => {
   }
   }
 }
+
 
 const style = 'border border-gray-400 outline-none rounded-md px-2 py-2 focus:border-blue-400 focus:border-2 w-full';
 
