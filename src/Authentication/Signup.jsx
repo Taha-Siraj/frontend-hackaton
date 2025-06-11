@@ -11,7 +11,7 @@ const Signup = () => {
     password: ''
   });
   const auth = getAuth();
-const db = getFirestore();
+  const db = getFirestore();
 
  const handleChange = (e) => {
   const {name , value} = e.target;
@@ -19,6 +19,7 @@ const db = getFirestore();
     ...prev,
     [name]: value
   }))
+  
  }
 
 const handleSubmit = async( e) => {
