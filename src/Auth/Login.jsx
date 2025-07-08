@@ -7,6 +7,7 @@ const Login = ({ setIsLoginOpen }) => {
     email: '',
     password: '',
   });
+  const [loader , setloader] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,13 +27,17 @@ const Login = ({ setIsLoginOpen }) => {
     }
 
     try {
+      setloader(true);
       const res = await axios.post('http://localhost:5004/login', formData);
       toast.success('Login successful!');
       console.log(res.data);
-      setIsLoginOpen(false);
+      setloader(false);
+      setFormData({ email : "" , password: ""})
+      setTimeout(() =>  setIsLoginOpen(false) , 1000)
     } catch (error) {
       console.log(error)
       toast.error(error.response?.data?.message || 'Login failed');
+      setloader(false);
     }
   };
 
@@ -69,9 +74,9 @@ const Login = ({ setIsLoginOpen }) => {
         />
         <button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex h-full justify-center"
         >
-          Login
+           { loader ? <div className='border-y-4 animate-spin h-7 w-7 border-blue-600 rounded-full' > </div>  : "Login"   }
         </button>
       </form>
     </div>
