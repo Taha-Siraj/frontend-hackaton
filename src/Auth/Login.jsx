@@ -76,7 +76,7 @@ const Login = ({ setIsLoginOpen }) => {
           type="submit"
           className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex h-full justify-center"
         >
-           { loader ? <div className='border-y-4 animate-spin h-7 w-7 border-blue-600 rounded-full' > </div>  : "Login"   }
+           { loader ? <div className='border-y-4 animate-spin duration-200 h-7 w-7 border-blue-600 rounded-full' > </div>  : "Login"   }
         </button>
       </form>
     </div>
