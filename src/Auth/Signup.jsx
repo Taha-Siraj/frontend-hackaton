@@ -9,6 +9,8 @@ const SignupModal = ({ setIsSignupOpen }) => {
     password: '',
   });
 
+  const [loader, setLoader] = useState(false)
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -23,9 +25,12 @@ const SignupModal = ({ setIsSignupOpen }) => {
     }
 
     try {
-      await axios.post('http://localhost:5004/signup', formData);
-      toast.success('User Created Successfully');
-      setIsSignupOpen(false);
+        setLoader(true)
+        await axios.post('http://localhost:5004/signup', formData);
+        toast.success('User Created Successfully');
+        setLoader(false)
+        setFormData({name : "" , email: "" , password: ""});
+        setTimeout(() => setIsSignupOpen(false) , 1000)
     } catch (error) {
       toast.error(error.response?.data?.message || 'Signup failed');
     }
@@ -71,9 +76,9 @@ const SignupModal = ({ setIsSignupOpen }) => {
         />
         <button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg"
+          className="w-full bg-green-600 hover:bg-green-700 text-white flex justify-center font-bold py-2 px-4 rounded-lg"
         >
-          Submit
+         {loader ? <div className='border-y-4 animate-spin duration-200 h-7 w-7 border-blue-600 rounded-full' > </div>  : "Signup"   }
         </button>
       </form>
     </div>
