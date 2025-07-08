@@ -48,7 +48,7 @@ const Signup = () => {
   return (
     <div>
       <Toaster richColors position='top-center'  />
-    <div className='flex justify-center w-full capitalize items-center fixed h-screen ' >
+    <div className='flex justify-center w-full capitalize items-center fixed h-screen top-0 left-0' >
       <div className='flex flex-col justify-center items-center gap-y-3 py-10 capitalize'>
       <input type="text"
       name='name'
