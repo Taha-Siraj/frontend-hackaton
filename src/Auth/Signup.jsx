@@ -11,8 +11,9 @@ const Signup = () => {
     email: '',
     password: '',
   });
-  const [Isshow, setIshow] = useState(false);
 
+  const [Isshow, setIshow] = useState(false);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -20,18 +21,6 @@ const Signup = () => {
       [name]: value,
     }));
   };
-
-  useEffect(() => {
-    const fetchuser = async () => {
-      try {
-        let res = await axios.get('http://localhost:5004/get-user');
-        console.log(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchuser();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
